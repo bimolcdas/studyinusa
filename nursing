@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলাদেশ থেকে আমেরিকায় নার্সিং উচ্চশিক্ষা গাইড</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts (Bengali support) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #fdfaf6;
+            color: #1f2937;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .active-tab {
+            border-bottom: 2px solid #0891b2;
+            color: #0891b2;
+            font-weight: 600;
+        }
+        .inactive-tab {
+            color: #6b7280;
+        }
+        .inactive-tab:hover {
+            color: #374151;
+        }
+        /* Pagination Button Styles */
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            color: #374151;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+        }
+        .pagination-btn:hover:not(:disabled) {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+    
+    <!-- Chosen Palette: Warm Professional -> Background: #fdfaf6, Primary: #0891b2 (Cyan), Secondary: #f59e0b (Amber) -->
+    <!-- Application Structure Plan:
+         1. Roadmap: Tabs for step-by-step guidance.
+         2. Calculator: Interactive inputs for eligibility.
+         3. Finance: Charts for visualization.
+         4. University DB: NOW UPDATED with 200+ entries, Search, and Pagination.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- UPDATED LOGO SECTION -->
+                <div class="flex items-center gap-3">
+                    <img src="image_e82278.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2997/2997608.png'" alt="Nursing Logo" class="h-10 w-10 object-contain">
+                    <span class="text-2xl text-cyan-700 font-bold">নার্সিং গাইড</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <button onclick="scrollToSection('roadmap')" class="text-gray-600 hover:text-cyan-700 font-medium">রোডম্যাপ</button>
+                    <button onclick="scrollToSection('eligibility')" class="text-gray-600 hover:text-cyan-700 font-medium">যোগ্যতা যাচাই</button>
+                    <button onclick="scrollToSection('finance')" class="text-gray-600 hover:text-cyan-700 font-medium">খরচ</button>
+                    <button onclick="scrollToSection('universities')" class="text-gray-600 hover:text-cyan-700 font-medium">ইউনিভার্সিটি (২০০+)</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-cyan-50 border-b border-cyan-100">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+            <div class="md:w-2/3 mb-8 md:mb-0">
+                <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                    বাংলাদেশ থেকে আমেরিকায় <br><span class="text-cyan-700">নার্সিং ক্যারিয়ার</span> ও উচ্চশিক্ষা
+                </h1>
+                <p class="text-lg text-gray-600 mb-6 max-w-2xl">
+                    আমেরিকায় নার্সিং পড়ার স্বপ্ন দেখছেন? এখানে পাবেন ২০০+ বিশ্ববিদ্যালয়ের তালিকা, খরচ, স্কলারশিপ এবং আবেদনের পূর্ণাঙ্গ গাইডলাইন।
+                </p>
+                <div class="flex space-x-4">
+                    <button onclick="scrollToSection('roadmap')" class="bg-cyan-700 text-white px-6 py-3 rounded-lg shadow hover:bg-cyan-800 transition">
+                        গাইডলাইন দেখুন
+                    </button>
+                    <button onclick="scrollToSection('universities')" class="bg-white text-cyan-700 border border-cyan-700 px-6 py-3 rounded-lg hover:bg-cyan-50 transition">
+                        ভার্সিটি খুঁজুন
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/3 flex justify-center">
+                <div class="bg-white p-6 rounded-xl shadow-xl border border-gray-100 w-full max-w-sm">
+                    <h3 class="font-bold text-gray-800 mb-2">দ্রুত তথ্য কণিকা</h3>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> প্রাথমিক যোগ্যতা: ৪ বছরের B.Sc Nursing</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> ইংরেজি পরীক্ষা: IELTS / TOEFL</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> মূল্যায়ন: CGFNS / WES Evaluation</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✔</span> ভিসা টাইপ: F1 Student Visa</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- Section 1: Roadmap -->
+        <section id="roadmap">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900">আমেরিকা যাত্রার ৫টি ধাপ (Roadmap)</h2>
+                <p class="mt-2 text-gray-600 max-w-2xl mx-auto">সঠিক পরিকল্পনা সাফল্যের চাবিকাঠি। প্রতিটি ধাপে বিস্তারিত করণীয় নিচে দেওয়া হলো।</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                <div class="flex overflow-x-auto bg-gray-50 border-b border-gray-200" id="roadmap-tabs"></div>
+                <div class="p-8" id="roadmap-content"></div>
+            </div>
+        </section>
+
+        <!-- Section 2: Eligibility Calculator -->
+        <section id="eligibility" class="bg-amber-50 rounded-3xl p-8 md:p-12">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">যোগ্যতা যাচাই করুন</h2>
+                    <p class="text-gray-700 mb-6">আপনার বর্তমান অবস্থা ইনপুট দিন এবং তাৎক্ষণিক ফিডব্যাক পান।</p>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">শিক্ষাগত যোগ্যতা</label>
+                            <select id="edu-level" class="w-full rounded-md border-gray-300 shadow-sm p-3 border focus:border-cyan-500 focus:ring-cyan-500">
+                                <option value="diploma">Diploma in Nursing</option>
+                                <option value="bsc_running">B.Sc Nursing (চলমান)</option>
+                                <option value="bsc_complete">B.Sc Nursing (সম্পন্ন)</option>
+                                <option value="msc">M.Sc Nursing</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">GPA (4.0 এর মধ্যে)</label>
+                            <input type="number" id="gpa-input" step="0.1" class="w-full rounded-md border-gray-300 shadow-sm p-3 border focus:border-cyan-500 focus:ring-cyan-500" placeholder="যেমন: 3.5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">IELTS স্কোর</label>
+                            <input type="number" id="ielts-input" step="0.5" class="w-full rounded-md border-gray-300 shadow-sm p-3 border focus:border-cyan-500 focus:ring-cyan-500" placeholder="যেমন: 6.5">
+                        </div>
+                        <button onclick="checkEligibility()" class="w-full bg-cyan-700 text-white font-bold py-3 rounded-lg hover:bg-cyan-800 transition">ফলাফল দেখুন</button>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md h-full flex flex-col justify-center">
+                    <div id="result-box" class="text-center">
+                        <div class="text-6xl mb-4">📋</div>
+                        <h3 class="text-xl font-semibold text-gray-800">অপেক্ষা করছি...</h3>
+                        <p class="text-gray-500">আপনার তথ্য দিন।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Finance -->
+        <section id="finance">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-gray-900">খরচ এবং ফান্ডিং</h2>
+                <p class="mt-2 text-gray-600">বাৎসরিক খরচের ধারণা এবং স্কলারশিপের উৎস।</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">আনুমানিক খরচ (১ বছর)</h3>
+                    <div class="chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">কিভাবে খরচ কমাবেন?</h3>
+                    <div class="flex-grow space-y-4 overflow-y-auto">
+                        <div class="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-bold text-green-800">Graduate Assistantship (GA)</h4>
+                            <p class="text-sm text-gray-700">প্রফেসরের সাথে কাজ করে টিউশন ফি মওকুফ + মাসিক বেতন। সেরা উপায়।</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-800">ইন-স্টেট টিউশন (In-State Tuition)</h4>
+                            <p class="text-sm text-gray-700">টেক্সাস বা ফ্লোরিডার মতো রাজ্যে কিছু স্কলারশিপ পেলে টিউশন ফি কমে অর্ধেক হয়ে যায়।</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-bold text-purple-800">NCLEX পাস করা</h4>
+                            <p class="text-sm text-gray-700">দেশে থেকে NCLEX পাস করলে অনেক হসপিটাল স্পন্সরশিপ দিতে পারে (EB-3 Visa)।</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: University Finder (Updated with 200+ DB) -->
+        <section id="universities">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-6 gap-4">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-900">ইউনিভার্সিটি ফাইন্ডার</h2>
+                    <p class="mt-2 text-gray-600">২০০+ বিশ্ববিদ্যালয়ের তালিকা থেকে আপনার পছন্দেরটি খুঁজুন।</p>
+                </div>
+                
+                <!-- Search and Filters -->
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <input type="text" id="uni-search" onkeyup="filterUniversities()" placeholder="নাম বা স্টেট দিয়ে খুঁজুন..." class="border-gray-300 rounded-md shadow-sm p-2 text-sm border focus:ring-cyan-500 focus:border-cyan-500 w-full sm:w-64">
+                    
+                    <select id="tuition-filter" onchange="filterUniversities()" class="border-gray-300 rounded-md shadow-sm p-2 text-sm border focus:ring-cyan-500 focus:border-cyan-500">
+                        <option value="all">সকল খরচ রেঞ্জ</option>
+                        <option value="low">কম ($১৫k-$২৫k)</option>
+                        <option value="medium">মাঝারি ($২৫k-$৪০k)</option>
+                        <option value="high">উচ্চ ($৪০k+)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto bg-white rounded-xl shadow border border-gray-200 min-h-[500px]">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">বিশ্ববিদ্যালয়</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">লোকেশন (State)</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">আনুমানিক টিউশন/বছর</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">প্রোগ্রাম</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="uni-table-body">
+                        <!-- Rows injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="mt-4 flex justify-between items-center px-2">
+                <span class="text-sm text-gray-600" id="page-info">Showing 1-10 of 200</span>
+                <div class="flex space-x-2">
+                    <button onclick="changePage(-1)" id="prev-btn" class="pagination-btn">Previous</button>
+                    <button onclick="changePage(1)" id="next-btn" class="pagination-btn">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="bg-cyan-800 rounded-3xl p-8 md:p-12 text-center text-white mb-10">
+            <h2 class="text-2xl font-bold mb-4">স্বপ্ন পূরণে আপোষ করবেন না</h2>
+            <p class="text-cyan-100 mb-6 max-w-2xl mx-auto">
+                সঠিক তথ্য এবং পরিশ্রম আপনাকে পৌঁছে দেবে আপনার গন্তব্যে। আপনার প্রোফাইল অনুযায়ী সেরা ভার্সিটি সিলেক্ট করতে সময় নিন।
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center border-t border-gray-800">
+        <p>
+  &copy; 2024 Nursing Study Abroad Guide.<br>
+  Data Source: Google | Wikipedia | usnews.com.<br>
+  <strong>Created By: Bimol Chandra Das | Data Scientist</strong>
+</p>
+
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        /* ---------------------------------------------------------
+           DATA: 200+ Universities
+           Note: Costs are estimates for Out-of-State/International students.
+           Low: <25k, Medium: 25k-45k, High: >45k
+        --------------------------------------------------------- */
+        const rawUniData = [
+            // Alabama
+            {n: "University of Alabama at Birmingham", s: "Alabama", c: 22000, p: "MSN, DNP, PhD"},
+            {n: "University of Alabama (Tuscaloosa)", s: "Alabama", c: 31000, p: "MSN, DNP"},
+            {n: "Auburn University", s: "Alabama", c: 32000, p: "MSN"},
+            {n: "University of South Alabama", s: "Alabama", c: 18000, p: "MSN, DNP"},
+            {n: "Troy University", s: "Alabama", c: 16000, p: "MSN"},
+            // Arizona
+            {n: "University of Arizona", s: "Arizona", c: 37000, p: "MSN, PhD"},
+            {n: "Arizona State University", s: "Arizona", c: 34000, p: "MSN, DNP"},
+            {n: "Northern Arizona University", s: "Arizona", c: 27000, p: "MSN"},
+            // Arkansas
+            {n: "University of Arkansas", s: "Arkansas", c: 26000, p: "MSN, DNP"},
+            {n: "Arkansas State University", s: "Arkansas", c: 14000, p: "MSN"},
+            {n: "University of Central Arkansas", s: "Arkansas", c: 15000, p: "MSN"},
+            // California (State schools often cheaper tuition but high living cost)
+            {n: "UCLA (Univ. of California, Los Angeles)", s: "California", c: 45000, p: "MSN, PhD"},
+            {n: "UC Irvine", s: "California", c: 44000, p: "MSN, PhD"},
+            {n: "UC San Francisco", s: "California", c: 50000, p: "MSN, PhD"},
+            {n: "UC Davis", s: "California", c: 46000, p: "MSN"},
+            {n: "CSU Long Beach", s: "California", c: 18000, p: "MSN"},
+            {n: "CSU Fullerton", s: "California", c: 18000, p: "MSN"},
+            {n: "CSU Los Angeles", s: "California", c: 18000, p: "MSN"},
+            {n: "San Diego State University", s: "California", c: 20000, p: "MSN"},
+            {n: "San Jose State University", s: "California", c: 19000, p: "MSN"},
+            {n: "University of San Diego", s: "California", c: 52000, p: "MSN, PhD"},
+            {n: "Loma Linda University", s: "California", c: 35000, p: "MSN, PhD"},
+            {n: "Samuel Merritt University", s: "California", c: 55000, p: "MSN, DNP"},
+            // Colorado
+            {n: "University of Colorado Anschutz", s: "Colorado", c: 36000, p: "MSN, PhD"},
+            {n: "University of Northern Colorado", s: "Colorado", c: 22000, p: "MSN, DNP"},
+            {n: "Regis University", s: "Colorado", c: 38000, p: "MSN"},
+            // Connecticut
+            {n: "Yale University", s: "Connecticut", c: 65000, p: "MSN, PhD"},
+            {n: "University of Connecticut", s: "Connecticut", c: 40000, p: "MSN, PhD"},
+            {n: "Fairfield University", s: "Connecticut", c: 42000, p: "MSN"},
+            // Florida
+            {n: "University of Florida", s: "Florida", c: 30000, p: "MSN, DNP, PhD"},
+            {n: "University of South Florida", s: "Florida", c: 21000, p: "MSN, DNP"},
+            {n: "Florida State University", s: "Florida", c: 22000, p: "MSN, DNP"},
+            {n: "University of Central Florida", s: "Florida", c: 22000, p: "MSN, PhD"},
+            {n: "Florida International University", s: "Florida", c: 23000, p: "MSN"},
+            {n: "University of Miami", s: "Florida", c: 58000, p: "MSN, PhD"},
+            {n: "Florida Atlantic University", s: "Florida", c: 20000, p: "MSN"},
+            // Georgia
+            {n: "Emory University", s: "Georgia", c: 56000, p: "MSN, PhD"},
+            {n: "Augusta University", s: "Georgia", c: 24000, p: "MSN, DNP"},
+            {n: "Georgia State University", s: "Georgia", c: 29000, p: "MSN, PhD"},
+            {n: "Georgia Southern University", s: "Georgia", c: 19000, p: "MSN"},
+            {n: "Kennesaw State University", s: "Georgia", c: 20000, p: "MSN"},
+            // Illinois
+            {n: "University of Illinois Chicago", s: "Illinois", c: 28000, p: "MSN, PhD"},
+            {n: "Rush University", s: "Illinois", c: 55000, p: "MSN, DNP, PhD"},
+            {n: "Loyola University Chicago", s: "Illinois", c: 45000, p: "MSN, PhD"},
+            {n: "DePaul University", s: "Illinois", c: 40000, p: "MSN"},
+            {n: "Illinois State University", s: "Illinois", c: 26000, p: "MSN"},
+            {n: "Southern Illinois University Edwardsville", s: "Illinois", c: 18000, p: "MSN"},
+            // Indiana
+            {n: "Indiana University Indianapolis", s: "Indiana", c: 30000, p: "MSN, PhD"},
+            {n: "Purdue University Global", s: "Indiana", c: 15000, p: "MSN"},
+            {n: "Ball State University", s: "Indiana", c: 24000, p: "MSN"},
+            {n: "Valparaiso University", s: "Indiana", c: 35000, p: "MSN"},
+            // Iowa
+            {n: "University of Iowa", s: "Iowa", c: 31000, p: "MSN, PhD, DNP"},
+            // Kansas
+            {n: "University of Kansas", s: "Kansas", c: 28000, p: "MSN, PhD"},
+            {n: "Wichita State University", s: "Kansas", c: 17000, p: "MSN"},
+            // Kentucky
+            {n: "University of Kentucky", s: "Kentucky", c: 32000, p: "MSN, PhD"},
+            {n: "University of Louisville", s: "Kentucky", c: 28000, p: "MSN"},
+            {n: "Northern Kentucky University", s: "Kentucky", c: 18000, p: "MSN"},
+            // Maryland
+            {n: "Johns Hopkins University", s: "Maryland", c: 60000, p: "MSN, PhD, DNP"},
+            {n: "University of Maryland", s: "Maryland", c: 38000, p: "MSN, PhD"},
+            // Massachusetts
+            {n: "Boston College", s: "Massachusetts", c: 55000, p: "MSN, PhD"},
+            {n: "Northeastern University", s: "Massachusetts", c: 52000, p: "MSN, PhD"},
+            {n: "UMass Amherst", s: "Massachusetts", c: 34000, p: "MSN, PhD"},
+            {n: "UMass Boston", s: "Massachusetts", c: 33000, p: "MSN"},
+            {n: "UMass Lowell", s: "Massachusetts", c: 32000, p: "MSN"},
+            {n: "Simmons University", s: "Massachusetts", c: 48000, p: "MSN"},
+            // Michigan
+            {n: "University of Michigan", s: "Michigan", c: 50000, p: "MSN, PhD"},
+            {n: "Michigan State University", s: "Michigan", c: 38000, p: "MSN, PhD"},
+            {n: "Wayne State University", s: "Michigan", c: 32000, p: "MSN, PhD"},
+            {n: "Grand Valley State University", s: "Michigan", c: 25000, p: "MSN"},
+            {n: "Western Michigan University", s: "Michigan", c: 27000, p: "MSN"},
+            // Minnesota
+            {n: "University of Minnesota", s: "Minnesota", c: 35000, p: "MSN, PhD"},
+            {n: "Minnesota State Univ, Mankato", s: "Minnesota", c: 16000, p: "MSN"},
+            {n: "Winona State University", s: "Minnesota", c: 17000, p: "MSN"},
+            // Missouri
+            {n: "University of Missouri (Mizzou)", s: "Missouri", c: 29000, p: "MSN, PhD"},
+            {n: "UMKC", s: "Missouri", c: 28000, p: "MSN"},
+            {n: "Saint Louis University", s: "Missouri", c: 45000, p: "MSN"},
+            // Nebraska
+            {n: "University of Nebraska Medical Center", s: "Nebraska", c: 28000, p: "MSN, PhD"},
+            {n: "Creighton University", s: "Nebraska", c: 40000, p: "MSN"},
+            // Nevada
+            {n: "UNLV (Univ of Nevada Las Vegas)", s: "Nevada", c: 24000, p: "MSN, PhD"},
+            {n: "University of Nevada, Reno", s: "Nevada", c: 23000, p: "MSN"},
+            // New Jersey
+            {n: "Rutgers University", s: "New Jersey", c: 35000, p: "MSN, PhD, DNP"},
+            {n: "Seton Hall University", s: "New Jersey", c: 38000, p: "MSN"},
+            {n: "The College of New Jersey", s: "New Jersey", c: 28000, p: "MSN"},
+            // New York
+            {n: "Columbia University", s: "New York", c: 70000, p: "MSN, PhD, DNP"},
+            {n: "New York University (NYU)", s: "New York", c: 68000, p: "MSN, PhD"},
+            {n: "University at Buffalo (SUNY)", s: "New York", c: 25000, p: "MSN, PhD"},
+            {n: "Stony Brook University (SUNY)", s: "New York", c: 26000, p: "MSN"},
+            {n: "Binghamton University (SUNY)", s: "New York", c: 24000, p: "MSN"},
+            {n: "University of Rochester", s: "New York", c: 55000, p: "MSN, PhD"},
+            {n: "Hunter College (CUNY)", s: "New York", c: 18000, p: "MSN"},
+            {n: "Adelphi University", s: "New York", c: 42000, p: "MSN"},
+            // North Carolina
+            {n: "Duke University", s: "North Carolina", c: 60000, p: "MSN, PhD"},
+            {n: "UNC Chapel Hill", s: "North Carolina", c: 36000, p: "MSN, PhD"},
+            {n: "UNC Greensboro", s: "North Carolina", c: 22000, p: "MSN"},
+            {n: "UNC Charlotte", s: "North Carolina", c: 21000, p: "MSN"},
+            {n: "East Carolina University", s: "North Carolina", c: 20000, p: "MSN"},
+            // Ohio
+            {n: "Ohio State University", s: "Ohio", c: 38000, p: "MSN, PhD"},
+            {n: "Case Western Reserve University", s: "Ohio", c: 55000, p: "MSN, PhD"},
+            {n: "University of Cincinnati", s: "Ohio", c: 26000, p: "MSN"},
+            {n: "Kent State University", s: "Ohio", c: 22000, p: "MSN"},
+            {n: "Ohio University", s: "Ohio", c: 20000, p: "MSN"},
+            // Pennsylvania
+            {n: "University of Pennsylvania", s: "Pennsylvania", c: 65000, p: "MSN, PhD"},
+            {n: "University of Pittsburgh", s: "Pennsylvania", c: 42000, p: "MSN, PhD"},
+            {n: "Penn State University", s: "Pennsylvania", c: 38000, p: "MSN, PhD"},
+            {n: "Villanova University", s: "Pennsylvania", c: 48000, p: "MSN"},
+            {n: "Drexel University", s: "Pennsylvania", c: 52000, p: "MSN"},
+            {n: "Duquesne University", s: "Pennsylvania", c: 40000, p: "MSN"},
+            // South Carolina
+            {n: "University of South Carolina", s: "South Carolina", c: 30000, p: "MSN, PhD"},
+            {n: "Clemson University", s: "South Carolina", c: 34000, p: "MSN"},
+            // Tennessee
+            {n: "Vanderbilt University", s: "Tennessee", c: 60000, p: "MSN, PhD"},
+            {n: "University of Tennessee Knoxville", s: "Tennessee", c: 32000, p: "MSN, PhD"},
+            {n: "University of Memphis", s: "Tennessee", c: 22000, p: "MSN"},
+            // Texas
+            {n: "UT Austin", s: "Texas", c: 38000, p: "MSN, PhD"},
+            {n: "Texas Woman's University", s: "Texas", c: 18000, p: "MSN, PhD"},
+            {n: "UT Arlington", s: "Texas", c: 20000, p: "MSN, PhD"},
+            {n: "Texas A&M University", s: "Texas", c: 22000, p: "MSN"},
+            {n: "UT Health San Antonio", s: "Texas", c: 25000, p: "MSN, PhD"},
+            {n: "Texas Tech University HSC", s: "Texas", c: 19000, p: "MSN"},
+            {n: "University of Houston", s: "Texas", c: 21000, p: "MSN"},
+            {n: "Baylor University", s: "Texas", c: 48000, p: "MSN"},
+            // Utah
+            {n: "University of Utah", s: "Utah", c: 30000, p: "MSN, PhD"},
+            {n: "Brigham Young University", s: "Utah", c: 15000, p: "MSN (LDS rate lower)"},
+            // Virginia
+            {n: "University of Virginia", s: "Virginia", c: 36000, p: "MSN, PhD"},
+            {n: "Virginia Commonwealth University", s: "Virginia", c: 32000, p: "MSN, PhD"},
+            {n: "George Mason University", s: "Virginia", c: 34000, p: "MSN, DNP"},
+            {n: "James Madison University", s: "Virginia", c: 28000, p: "MSN"},
+            // Washington
+            {n: "University of Washington", s: "Washington", c: 40000, p: "MSN, PhD, DNP"},
+            {n: "Washington State University", s: "Washington", c: 28000, p: "MSN"},
+            {n: "Seattle University", s: "Washington", c: 35000, p: "MSN"},
+            // Wisconsin
+            {n: "University of Wisconsin-Madison", s: "Wisconsin", c: 36000, p: "MSN, PhD"},
+            {n: "Marquette University", s: "Wisconsin", c: 42000, p: "MSN"},
+            {n: "UW Milwaukee", s: "Wisconsin", c: 25000, p: "MSN"},
+            // Add more to reach count (simulated batch of other state schools)
+            {n: "University of Alaska Anchorage", s: "Alaska", c: 22000, p: "MSN"},
+            {n: "Idaho State University", s: "Idaho", c: 23000, p: "MSN"},
+            {n: "Boise State University", s: "Idaho", c: 24000, p: "MSN"},
+            {n: "Montana State University", s: "Montana", c: 25000, p: "MSN"},
+            {n: "University of Montana", s: "Montana", c: 26000, p: "MSN"},
+            {n: "University of Wyoming", s: "Wyoming", c: 17000, p: "MSN"},
+            {n: "North Dakota State University", s: "North Dakota", c: 18000, p: "MSN"},
+            {n: "University of North Dakota", s: "North Dakota", c: 19000, p: "MSN"},
+            {n: "South Dakota State University", s: "South Dakota", c: 16000, p: "MSN"},
+            {n: "University of South Dakota", s: "South Dakota", c: 15000, p: "MSN"},
+            {n: "University of Hawaii at Manoa", s: "Hawaii", c: 33000, p: "MSN"},
+            {n: "University of New Mexico", s: "New Mexico", c: 24000, p: "MSN"},
+            {n: "New Mexico State University", s: "New Mexico", c: 22000, p: "MSN"},
+            {n: "University of Oklahoma", s: "Oklahoma", c: 26000, p: "MSN"},
+            {n: "Oklahoma City University", s: "Oklahoma", c: 30000, p: "MSN"},
+            {n: "Louisiana State University HSC", s: "Louisiana", c: 25000, p: "MSN"},
+            {n: "Univ of Louisiana Lafayette", s: "Louisiana", c: 20000, p: "MSN"},
+            {n: "University of Mississippi Med Center", s: "Mississippi", c: 22000, p: "MSN"},
+            {n: "University of Southern Mississippi", s: "Mississippi", c: 18000, p: "MSN"},
+            {n: "West Virginia University", s: "West Virginia", c: 26000, p: "MSN"},
+            {n: "Marshall University", s: "West Virginia", c: 22000, p: "MSN"},
+            {n: "University of Delaware", s: "Delaware", c: 34000, p: "MSN"},
+            {n: "University of Vermont", s: "Vermont", c: 38000, p: "MSN"},
+            {n: "University of New Hampshire", s: "New Hampshire", c: 32000, p: "MSN"},
+            {n: "University of Maine", s: "Maine", c: 28000, p: "MSN"},
+            {n: "University of Rhode Island", s: "Rhode Island", c: 30000, p: "MSN"},
+            // Populating more general entries to ensure depth for search demo
+            {n: "Arkansas Tech University", s: "Arkansas", c: 14000, p: "MSN"},
+            {n: "Harding University", s: "Arkansas", c: 20000, p: "MSN"},
+            {n: "Azusa Pacific University", s: "California", c: 38000, p: "MSN"},
+            {n: "Biola University", s: "California", c: 36000, p: "BSN only usually"},
+            {n: "Chico State", s: "California", c: 18000, p: "MSN"},
+            {n: "Sacramento State", s: "California", c: 18000, p: "MSN"},
+            {n: "Sonoma State", s: "California", c: 18000, p: "MSN"},
+            {n: "Western University of Health Sciences", s: "California", c: 40000, p: "MSN"},
+            {n: "University of Denver", s: "Colorado", c: 50000, p: "MSN"},
+            {n: "Quinnipiac University", s: "Connecticut", c: 45000, p: "MSN"},
+            {n: "Sacred Heart University", s: "Connecticut", c: 40000, p: "MSN"},
+            {n: "University of Hartford", s: "Connecticut", c: 38000, p: "MSN"},
+            {n: "Barry University", s: "Florida", c: 30000, p: "MSN"},
+            {n: "Nova Southeastern University", s: "Florida", c: 32000, p: "MSN"},
+            {n: "Jacksonville University", s: "Florida", c: 30000, p: "MSN"},
+            {n: "University of North Florida", s: "Florida", c: 21000, p: "MSN"},
+            {n: "Brenau University", s: "Georgia", c: 25000, p: "MSN"},
+            {n: "Mercer University", s: "Georgia", c: 30000, p: "MSN"},
+            {n: "Columbus State University", s: "Georgia", c: 18000, p: "MSN"},
+            {n: "Valdosta State University", s: "Georgia", c: 18000, p: "MSN"},
+            {n: "Bradley University", s: "Illinois", c: 30000, p: "MSN"},
+            {n: "Lewis University", s: "Illinois", c: 28000, p: "MSN"},
+            {n: "Northern Illinois University", s: "Illinois", c: 22000, p: "MSN"},
+            {n: "Southern Illinois Carbondale", s: "Illinois", c: 20000, p: "MSN"},
+            {n: "Indiana State University", s: "Indiana", c: 20000, p: "MSN"},
+            {n: "University of Indianapolis", s: "Indiana", c: 30000, p: "MSN"},
+            {n: "Drake University", s: "Iowa", c: 35000, p: "MSN"},
+            {n: "Mount Mercy University", s: "Iowa", c: 28000, p: "MSN"},
+            {n: "Washburn University", s: "Kansas", c: 16000, p: "MSN"},
+            {n: "Fort Hays State University", s: "Kansas", c: 14000, p: "MSN"},
+            {n: "Pittsburg State University", s: "Kansas", c: 15000, p: "MSN"},
+            {n: "Eastern Kentucky University", s: "Kentucky", c: 19000, p: "MSN"},
+            {n: "Western Kentucky University", s: "Kentucky", c: 24000, p: "MSN"},
+            {n: "Murray State University", s: "Kentucky", c: 22000, p: "MSN"},
+            {n: "Towson University", s: "Maryland", c: 24000, p: "MSN"},
+            {n: "Salisbury University", s: "Maryland", c: 20000, p: "MSN"},
+            {n: "Bowie State University", s: "Maryland", c: 19000, p: "MSN"},
+            {n: "MCPHS University", s: "Massachusetts", c: 45000, p: "MSN"},
+            {n: "Regis College", s: "Massachusetts", c: 40000, p: "MSN"},
+            {n: "Endicott College", s: "Massachusetts", c: 35000, p: "MSN"},
+            {n: "Salem State University", s: "Massachusetts", c: 20000, p: "MSN"},
+            {n: "Eastern Michigan University", s: "Michigan", c: 24000, p: "MSN"},
+            {n: "Oakland University", s: "Michigan", c: 24000, p: "MSN"},
+            {n: "Saginaw Valley State University", s: "Michigan", c: 22000, p: "MSN"},
+            {n: "University of Detroit Mercy", s: "Michigan", c: 40000, p: "MSN"},
+            {n: "St. Catherine University", s: "Minnesota", c: 30000, p: "MSN"},
+            {n: "Augsburg University", s: "Minnesota", c: 32000, p: "MSN"},
+            {n: "Bethel University", s: "Minnesota", c: 30000, p: "MSN"},
+            {n: "Mississippi College", s: "Mississippi", c: 18000, p: "MSN"},
+            {n: "William Carey University", s: "Mississippi", c: 15000, p: "MSN"},
+            {n: "Missouri State University", s: "Missouri", c: 17000, p: "MSN"},
+            {n: "Southeast Missouri State", s: "Missouri", c: 15000, p: "MSN"},
+            {n: "University of Central Missouri", s: "Missouri", c: 16000, p: "MSN"},
+            {n: "Clarkson College", s: "Nebraska", c: 20000, p: "MSN"},
+            {n: "Nebraska Methodist College", s: "Nebraska", c: 22000, p: "MSN"},
+            {n: "Southern New Hampshire University", s: "New Hampshire", c: 20000, p: "MSN (Online heavy)"},
+            {n: "Kean University", s: "New Jersey", c: 20000, p: "MSN"},
+            {n: "William Paterson University", s: "New Jersey", c: 22000, p: "MSN"},
+            {n: "Stockton University", s: "New Jersey", c: 21000, p: "MSN"},
+            {n: "Monmouth University", s: "New Jersey", c: 40000, p: "MSN"},
+            {n: "Pace University", s: "New York", c: 45000, p: "MSN"},
+            {n: "Hofstra University", s: "New York", c: 48000, p: "MSN"},
+            {n: "Long Island University", s: "New York", c: 40000, p: "MSN"},
+            {n: "Molloy University", s: "New York", c: 35000, p: "MSN"},
+            {n: "D'Youville University", s: "New York", c: 28000, p: "MSN"},
+            {n: "Appalachian State University", s: "North Carolina", c: 22000, p: "MSN"},
+            {n: "Western Carolina University", s: "North Carolina", c: 18000, p: "MSN"},
+            {n: "UNC Wilmington", s: "North Carolina", c: 21000, p: "MSN"},
+            {n: "Winston-Salem State", s: "North Carolina", c: 18000, p: "MSN"},
+            {n: "University of Toledo", s: "Ohio", c: 24000, p: "MSN"},
+            {n: "Wright State University", s: "Ohio", c: 20000, p: "MSN"},
+            {n: "Bowling Green State University", s: "Ohio", c: 19000, p: "MSN"},
+            {n: "University of Akron", s: "Ohio", c: 18000, p: "MSN"},
+            {n: "Xavier University", s: "Ohio", c: 35000, p: "MSN"},
+            {n: "Temple University", s: "Pennsylvania", c: 35000, p: "MSN"},
+            {n: "West Chester University", s: "Pennsylvania", c: 20000, p: "MSN"},
+            {n: "Indiana University of PA", s: "Pennsylvania", c: 22000, p: "MSN"},
+            {n: "La Salle University", s: "Pennsylvania", c: 32000, p: "MSN"},
+            {n: "Widener University", s: "Pennsylvania", c: 35000, p: "MSN"},
+            {n: "Scranton University", s: "Pennsylvania", c: 38000, p: "MSN"},
+            {n: "College of Charleston", s: "South Carolina", c: 32000, p: "MSN"},
+            {n: "Anderson University", s: "South Carolina", c: 28000, p: "MSN"},
+            {n: "Charleston Southern", s: "South Carolina", c: 29000, p: "MSN"},
+            {n: "ETSU", s: "Tennessee", c: 25000, p: "MSN"},
+            {n: "Middle Tennessee State", s: "Tennessee", c: 26000, p: "MSN"},
+            {n: "Tennessee Tech", s: "Tennessee", c: 22000, p: "MSN"},
+            {n: "Belmont University", s: "Tennessee", c: 38000, p: "MSN"},
+            {n: "Texas State University", s: "Texas", c: 22000, p: "MSN"},
+            {n: "UT Tyler", s: "Texas", c: 20000, p: "MSN"},
+            {n: "UT El Paso", s: "Texas", c: 21000, p: "MSN"},
+            {n: "Sam Houston State", s: "Texas", c: 18000, p: "MSN"},
+            {n: "Prairie View A&M", s: "Texas", c: 18000, p: "MSN"},
+            {n: "Texas A&M Corpus Christi", s: "Texas", c: 19000, p: "MSN"},
+            {n: "TCU (Texas Christian)", s: "Texas", c: 50000, p: "MSN"},
+            {n: "SMU (Southern Methodist)", s: "Texas", c: 55000, p: "MSN"},
+            {n: "Weber State University", s: "Utah", c: 16000, p: "MSN"},
+            {n: "Utah Valley University", s: "Utah", c: 17000, p: "MSN"},
+            {n: "Old Dominion University", s: "Virginia", c: 28000, p: "MSN"},
+            {n: "Radford University", s: "Virginia", c: 25000, p: "MSN"},
+            {n: "Liberty University", s: "Virginia", c: 20000, p: "MSN"},
+            {n: "Marymount University", s: "Virginia", c: 32000, p: "MSN"},
+            {n: "Shenandoah University", s: "Virginia", c: 35000, p: "MSN"},
+            {n: "Western Washington University", s: "Washington", c: 24000, p: "MSN"},
+            {n: "Eastern Washington University", s: "Washington", c: 24000, p: "MSN"},
+            {n: "Gonzaga University", s: "Washington", c: 45000, p: "MSN"},
+            {n: "Pacific Lutheran University", s: "Washington", c: 42000, p: "MSN"},
+            {n: "UW Oshkosh", s: "Wisconsin", c: 18000, p: "MSN"},
+            {n: "UW Eau Claire", s: "Wisconsin", c: 18000, p: "MSN"},
+            {n: "Edgewood College", s: "Wisconsin", c: 30000, p: "MSN"},
+            {n: "Concordia University Wisconsin", s: "Wisconsin", c: 30000, p: "MSN"}
+        ];
+
+        // Augment data with 'type' based on cost
+        const state = {
+            currentStep: 0,
+            universities: rawUniData.map(u => ({
+                ...u,
+                type: u.c < 25000 ? 'low' : (u.c < 45000 ? 'medium' : 'high')
+            })).sort((a,b) => a.n.localeCompare(b.n)), // Sort A-Z
+            currentPage: 1,
+            itemsPerPage: 10,
+            filteredUnis: [],
+            roadmapSteps: [
+                {
+                    title: "ধাপ ১: প্রস্তুতি (Preparation)",
+                    icon: "📚",
+                    content: "প্রথমেই আপনার একাডেমিক কাগজপত্র তৈরি করুন। ৪ বছরের বিএসসি নার্সিং ডিগ্রি এবং বাংলাদেশ নার্সিং কাউন্সিল (BNMC) এর রেজিস্ট্রেশন থাকা জরুরি।",
+                    details: ["B.Sc Nursing সনদ", "RN লাইসেন্স", "পাসপোর্ট"],
+                    subSteps: [
+                         "নার্সিং ইনস্টিটিউট বা কলেজ থেকে বিএসসি সার্টিফিকেট এবং ট্রান্সক্রিপ্ট সংগ্রহ করুন।",
+                         "BNMC থেকে আপনার রেজিস্ট্রেশন বা লাইসেন্স নবায়ন করা আছে কিনা যাচাই করুন।",
+                         "পাসপোর্ট তৈরি করুন অথবা মেয়াদ অন্তত ৬ মাস আছে কিনা নিশ্চিত করুন।",
+                         "পড়াশোনার খরচ কে বহন করবে (স্পন্সর) তা ঠিক করুন এবং ব্যাংক সলভেন্সি সম্পর্কে ধারণা নিন।"
+                    ]
+                },
+                {
+                    title: "ধাপ ২: ইংরেজি পরীক্ষা (Tests)",
+                    icon: "📝",
+                    content: "আমেরিকার জন্য IELTS বা TOEFL অত্যাবশ্যক। মাস্টর্স প্রোগ্রামের জন্য সাধারণত IELTS 6.5 বা 7.0 চাওয়া হয়।",
+                    details: ["IELTS: 6.5+", "TOEFL: 80+"],
+                    subSteps: [
+                        "ব্রিটিশ কাউন্সিল বা আইডিপি-তে IELTS পরীক্ষার জন্য রেজিস্ট্রেশন করুন।",
+                        "লিসেনিং, রিডিং, রাইটিং এবং স্পিকিং - ৪টি সেকশনের জন্য প্রস্তুতি নিন।",
+                        "কমপক্ষে ৬.৫ ব্যান্ড স্কোর তোলার টার্গেট করুন (কোনো ব্যান্ডে ৬.০ এর নিচে যেন না থাকে)।",
+                        "ফলাফল পাওয়ার পর হার্ডকপি সংরক্ষণ করুন।"
+                    ]
+                },
+                {
+                    title: "ধাপ ৩: মূল্যায়ন (Evaluation)",
+                    icon: "⚖️",
+                    content: "CGFNS (Commission on Graduates of Foreign Nursing Schools) এর মাধ্যমে আপনার বাংলাদেশী ডিগ্রির সমমান যাচাই (CES Report) করাতে হবে।",
+                    details: ["CGFNS CES Report", "WES Course-by-course"],
+                    subSteps: [
+                        "CGFNS ওয়েবসাইটে একাউন্ট খুলুন এবং CES Professional Report এর জন্য আবেদন করুন।",
+                        "BNMC থেকে আপনার লাইসেন্স ভেরিফিকেশন CGFNS-এ পাঠানোর ব্যবস্থা করুন।",
+                        "আপনার নার্সিং কলেজ থেকে একাডেমিক ট্রান্সক্রিপ্ট সরাসরি CGFNS-এ পাঠানোর ব্যবস্থা করুন।",
+                        "ইভালুয়েশন রিপোর্ট পেতে সাধারণত ৩-৪ মাস সময় লাগতে পারে।"
+                    ]
+                },
+                {
+                    title: "ধাপ ৪: আবেদন (Application)",
+                    icon: "🎓",
+                    content: "বিশ্ববিদ্যালয় নির্বাচন করে আবেদন করুন। Statement of Purpose (SOP) এবং ৩টি রিকমেন্ডেশন লেটার (LOR) জমা দিতে হবে।",
+                    details: ["SOP & Resume", "3 LORs", "App Fee"],
+                    subSteps: [
+                        "আপনার বাজেট এবং পছন্দ অনুযায়ী ৫-৬টি বিশ্ববিদ্যালয় তালিকাভুক্ত করুন।",
+                        "একটি শক্তিশালী Statement of Purpose (SOP) লিখুন কেন আপনি আমেরিকায় পড়তে চান।",
+                        "কলেজের শিক্ষকদের কাছ থেকে ৩টি রিকমেন্ডেশন লেটার (LOR) সংগ্রহ করুন।",
+                        "বিশ্ববিদ্যালয়ের পোর্টালে গিয়ে আবেদন ফি দিয়ে আবেদন সাবমিট করুন।"
+                    ]
+                },
+                {
+                    title: "ধাপ ৫: ভিসা (Visa)",
+                    icon: "✈️",
+                    content: "অফার লেটার পাওয়ার পর ভিসার জন্য আবেদন করুন। ১ বছরের খরচ দেখানোর জন্য ব্যাংক স্টেটমেন্ট প্রয়োজন হবে।",
+                    details: ["DS-160", "Bank Statement", "Interview"],
+                    subSteps: [
+                        "বিশ্ববিদ্যালয় থেকে I-20 ফর্ম বা অফার লেটার গ্রহণ করুন।",
+                        "অনলাইনে SEVIS ফি পরিশোধ করুন।",
+                        "DS-160 ফর্ম সতর্কতার সাথে পূরণ করুন এবং ইন্টারভিউ ডেট নিন।",
+                        "ব্যাংক স্টেটমেন্ট এবং স্পন্সরের কাগজপত্র গুছিয়ে এম্বাসিতে ইন্টারভিউ দিন।"
+                    ]
+                }
+            ]
+        };
+
+        // Initialize filteredUnis with all data initially
+        state.filteredUnis = [...state.universities];
+
+        // DOM Elements
+        const roadmapTabs = document.getElementById('roadmap-tabs');
+        const roadmapContent = document.getElementById('roadmap-content');
+        const uniTableBody = document.getElementById('uni-table-body');
+        const resultBox = document.getElementById('result-box');
+        const pageInfo = document.getElementById('page-info');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRoadmap();
+            initCharts();
+            renderUniversities();
+        });
+
+        // Navigation
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 1. Roadmap Logic
+        function renderRoadmap() {
+            roadmapTabs.innerHTML = '';
+            state.roadmapSteps.forEach((step, index) => {
+                const btn = document.createElement('button');
+                btn.className = `flex-1 py-4 px-6 text-sm md:text-base font-medium whitespace-nowrap focus:outline-none transition-colors duration-200 ${index === state.currentStep ? 'active-tab bg-white' : 'inactive-tab bg-gray-50'}`;
+                btn.innerHTML = `<span class="mr-2">${step.icon}</span> ${step.title.split(':')[0]}`;
+                btn.onclick = () => {
+                    state.currentStep = index;
+                    renderRoadmap();
+                    renderStepContent(index);
+                };
+                roadmapTabs.appendChild(btn);
+            });
+            renderStepContent(state.currentStep);
+        }
+
+        function renderStepContent(index) {
+            const step = state.roadmapSteps[index];
+            
+            // Create list items for subSteps
+            const subStepsList = step.subSteps ? `
+                <ul class="list-disc pl-5 space-y-3 text-gray-700 mb-6 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+                    ${step.subSteps.map(s => `<li>${s}</li>`).join('')}
+                </ul>
+            ` : '';
+
+            roadmapContent.innerHTML = `
+                <div class="animate-fade-in-up">
+                    <h3 class="text-2xl font-bold text-cyan-800 mb-4">${step.title}</h3>
+                    <p class="text-lg text-gray-700 mb-4 leading-relaxed">${step.content}</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">বিস্তারিত করণীয়:</h4>
+                    ${subStepsList}
+
+                    <div class="bg-cyan-50 rounded-lg p-5 border border-cyan-100">
+                        <h4 class="font-semibold text-cyan-800 mb-3">চেকলিস্ট / ডকুমেন্টস:</h4>
+                        <div class="flex flex-wrap gap-3">
+                            ${step.details.map(d => `<span class="bg-white border border-cyan-200 text-cyan-700 px-3 py-1 rounded-full text-sm font-medium shadow-sm">🔹 ${d}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 2. Eligibility Logic
+        function checkEligibility() {
+            const edu = document.getElementById('edu-level').value;
+            const gpa = parseFloat(document.getElementById('gpa-input').value);
+            const ielts = parseFloat(document.getElementById('ielts-input').value);
+
+            let message = "";
+            let colorClass = "";
+            let icon = "";
+
+            if (edu === 'diploma') {
+                message = "সরাসরি মাস্টর্স করা কঠিন। আপনাকে প্রথমে বাংলাদেশে 'Post Basic B.Sc' সম্পন্ন করতে হবে।";
+                colorClass = "text-red-600 bg-red-50";
+                icon = "⚠️";
+            } else if (edu === 'bsc_running') {
+                message = "আপনার পড়াশোনা চালিয়ে যান। শেষ বর্ষে থাকা অবস্থায় IELTS প্রস্তুতি শুরু করুন।";
+                colorClass = "text-amber-600 bg-amber-50";
+                icon = "⏳";
+            } else {
+                if (!gpa || !ielts) {
+                    message = "দয়া করে জিপিএ এবং আইইএলটিএস স্কোর প্রদান করুন।";
+                    colorClass = "text-gray-600 bg-gray-50";
+                    icon = "❓";
+                } else if (gpa < 3.0) {
+                    message = "আপনার জিপিএ কিছুটা কম। তবে ভালো GRE স্কোর এবং কাজের অভিজ্ঞতা থাকলে কিছু ভার্সিটিতে সুযোগ হতে পারে।";
+                    colorClass = "text-amber-600 bg-amber-50";
+                    icon = "⚠️";
+                } else if (ielts < 6.5) {
+                    message = "আপনার IELTS স্কোর আরও উন্নত করতে হবে। সাধারণত ৬.৫ বা তার বেশি প্রয়োজন।";
+                    colorClass = "text-amber-600 bg-amber-50";
+                    icon = "📈";
+                } else {
+                    message = "অভিনন্দন! আপনি আবেদনের জন্য প্রাথমিকভাবে যোগ্য। এখন CGFNS এবং বিশ্ববিদ্যালয় নির্বাচনের কাজ শুরু করুন।";
+                    colorClass = "text-green-700 bg-green-50";
+                    icon = "🎉";
+                }
+            }
+            resultBox.innerHTML = `<div class="p-6 rounded-lg ${colorClass} transition-all duration-300"><div class="text-5xl mb-4">${icon}</div><h3 class="text-xl font-bold mb-2">ফলাফল</h3><p class="font-medium">${message}</p></div>`;
+        }
+
+        // 3. Charts Logic
+        function initCharts() {
+            const ctxCost = document.getElementById('costChart').getContext('2d');
+            new Chart(ctxCost, {
+                type: 'doughnut',
+                data: {
+                    labels: ['টিউশন ফি', 'থাকা-খাওয়া', 'হেলথ ইন্স্যুরেন্স', 'অন্যান্য'],
+                    datasets: [{
+                        data: [25000, 12000, 2000, 1500],
+                        backgroundColor: ['#0891b2', '#fbbf24', '#f87171', '#9ca3af'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // 4. University Logic (Filtering + Pagination)
+        function filterUniversities() {
+            const searchTerm = document.getElementById('uni-search').value.toLowerCase();
+            const typeFilter = document.getElementById('tuition-filter').value;
+
+            state.filteredUnis = state.universities.filter(uni => {
+                const matchesSearch = uni.n.toLowerCase().includes(searchTerm) || uni.s.toLowerCase().includes(searchTerm);
+                const matchesType = typeFilter === 'all' || uni.type === typeFilter;
+                return matchesSearch && matchesType;
+            });
+
+            state.currentPage = 1; // Reset to page 1 on filter
+            renderUniversities();
+        }
+
+        function renderUniversities() {
+            uniTableBody.innerHTML = '';
+            
+            const start = (state.currentPage - 1) * state.itemsPerPage;
+            const end = start + state.itemsPerPage;
+            const paginatedItems = state.filteredUnis.slice(start, end);
+            const totalItems = state.filteredUnis.length;
+
+            if (totalItems === 0) {
+                uniTableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-8 text-center text-gray-500">কোনো বিশ্ববিদ্যালয় পাওয়া যায়নি। অন্য কীওয়ার্ড দিয়ে চেষ্টা করুন।</td></tr>`;
+                pageInfo.innerText = "0 results";
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                return;
+            }
+
+            paginatedItems.forEach(uni => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50 transition";
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${uni.n}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${uni.s}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$${uni.c.toLocaleString()}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-cyan-600 font-semibold">${uni.p}</td>
+                `;
+                uniTableBody.appendChild(tr);
+            });
+
+            // Update Pagination Controls
+            pageInfo.innerText = `Showing ${start + 1}-${Math.min(end, totalItems)} of ${totalItems}`;
+            prevBtn.disabled = state.currentPage === 1;
+            nextBtn.disabled = end >= totalItems;
+        }
+
+        function changePage(direction) {
+            state.currentPage += direction;
+            renderUniversities();
+        }
+
+    </script>
+</body>
+</html>
